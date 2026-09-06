@@ -1,0 +1,102 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: #030712;
+    --foreground: #f8fafc;
+  }
+
+  html {
+    scroll-behavior: auto;
+    scroll-padding-top: 80px;
+    background-color: #030712;
+    color: #f8fafc;
+  }
+
+  body {
+    background-color: #030712;
+    color: #f8fafc;
+    overflow-x: hidden;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* GPU Hardware Acceleration for Smooth Scrolling & Transitions */
+  .transform-gpu {
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+  }
+
+  /* Performance optimization for offscreen sections */
+  .content-auto {
+    content-visibility: auto;
+    contain-intrinsic-size: 1px 800px;
+  }
+
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #030712;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #1e293b;
+    border-radius: 9999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #00d2ff;
+  }
+}
+
+/* Glassmorphism card utilities */
+.glass-panel {
+  background: rgba(13, 21, 39, 0.7);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-panel-glow {
+  background: rgba(13, 21, 39, 0.75);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(0, 210, 255, 0.25);
+  box-shadow: 0 0 25px rgba(0, 210, 255, 0.15);
+}
+
+/* Animated Neon Gradients */
+@keyframes glowLine {
+  0% {
+    opacity: 0.4;
+    transform: scaleX(0.96);
+  }
+  100% {
+    opacity: 1;
+    transform: scaleX(1.04);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Blend Mask for Product Imagery */
+.img-blend {
+  mask-image: radial-gradient(circle at center, black 65%, transparent 100%);
+  -webkit-mask-image: radial-gradient(circle at center, black 65%, transparent 100%);
+}

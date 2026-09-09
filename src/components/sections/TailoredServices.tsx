@@ -32,6 +32,8 @@ export default function TailoredServices() {
           preload="auto"
           className="w-full h-full object-cover object-center scale-[1.02] opacity-75 sm:opacity-60 transform-gpu"
         />
+        {/* Instant Tech Grid Background */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#00d2ff0d_1px,transparent_1px),linear-gradient(to_bottom,#00d2ff0d_1px,transparent_1px)] bg-[size:36px_36px] pointer-events-none" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_40%,rgba(0,210,255,0.22)_0%,rgba(3,7,18,0.72)_65%,#030712_100%)] pointer-events-none" />
         <div className="absolute top-0 inset-x-0 h-32 sm:h-44 bg-gradient-to-b from-slate-950 via-slate-950/80 to-transparent pointer-events-none" />
         <div className="absolute bottom-0 inset-x-0 h-32 sm:h-44 bg-gradient-to-t from-slate-950 via-slate-950/80 to-transparent pointer-events-none" />

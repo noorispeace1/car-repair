@@ -119,8 +119,9 @@ export default function PorscheScrubberHero() {
         />
       </div>
 
-      {/* Ambient Radial Studio Glow */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_45%,rgba(0,210,255,0.18)_0%,rgba(8,14,26,0.78)_65%,#030712_100%)] pointer-events-none" />
+      {/* Instant Cybernetic Tech Grid & Glow Background (Always visible immediately) */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#00d2ff0d_1px,transparent_1px),linear-gradient(to_bottom,#00d2ff0d_1px,transparent_1px)] bg-[size:36px_36px] pointer-events-none" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_45%,rgba(0,210,255,0.22)_0%,rgba(8,14,26,0.80)_65%,#030712_100%)] pointer-events-none" />
 
       {/* Top / Bottom fades */}
       <div className="absolute top-0 inset-x-0 h-28 sm:h-36 bg-gradient-to-b from-slate-950 via-slate-950/70 to-transparent pointer-events-none z-10" />
@@ -135,11 +136,11 @@ export default function PorscheScrubberHero() {
           filter: useTransform(textBlur, (v) => `blur(${v}px)`),
         }}
       >
-        {/* ── Page-load stagger container ── */}
+        {/* ── Stagger container (rendered immediately with initial={false}) ── */}
         <motion.div
           className="max-w-5xl space-y-5 sm:space-y-6 flex flex-col items-center"
           variants={containerVariants}
-          initial="hidden"
+          initial={false}
           animate="visible"
         >
           {/* Badge */}
@@ -169,10 +170,10 @@ export default function PorscheScrubberHero() {
             millimeter tolerances with comprehensive multi-point safety validation and guaranteed lifetime warranty.
           </motion.p>
 
-          {/* Metric Cards — own stagger group */}
+          {/* Metric Cards — rendered immediately */}
           <motion.div
             variants={cardContainerVariants}
-            initial="hidden"
+            initial={false}
             animate="visible"
             className="w-full pt-1 grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 text-left"
           >

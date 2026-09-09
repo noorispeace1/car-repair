@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Outfit, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import SmoothScrollProvider from "@/components/providers/SmoothScrollProvider";
+import Providers from "@/providers";
 import CustomCursor from "@/components/ui/CustomCursor";
 import HeaderNav from "@/components/ui/HeaderNav";
 import TopMarquee from "@/components/ui/TopMarquee";
@@ -68,18 +69,20 @@ export default function RootLayout({
         />
       </head>
       <body className="bg-slate-950 text-slate-100 font-sans antialiased selection:bg-brand-accent selection:text-slate-950">
-        <SmoothScrollProvider>
-          <CustomCursor />
-          <TopMarquee />
-          <HeaderNav />
-          <main className="relative min-h-screen">
-            {children}
-          </main>
-          <FooterMap />
-          <Footer />
-          <BookingModal />
-          <WhatsAppWidget />
-        </SmoothScrollProvider>
+        <Providers>
+          <SmoothScrollProvider>
+            <CustomCursor />
+            <TopMarquee />
+            <HeaderNav />
+            <main className="relative min-h-screen">
+              {children}
+            </main>
+            <FooterMap />
+            <Footer />
+            <BookingModal />
+            <WhatsAppWidget />
+          </SmoothScrollProvider>
+        </Providers>
       </body>
     </html>
   );

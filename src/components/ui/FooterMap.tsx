@@ -1,38 +1,46 @@
 "use client";
 
-import { MapPin, Phone, Clock, Mail, Navigation, ShieldCheck } from "lucide-react";
+import { useState } from "react";
+import { MapPin, Phone, Clock, Mail, Navigation, ShieldCheck, ExternalLink, Layers } from "lucide-react";
 import { useAppControls } from "@/components/providers/SmoothScrollProvider";
 import { audioEngine } from "@/lib/audioSynthesizer";
 
+const MAP_URLS = {
+  standard:
+    "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2682.5!2d-122.2107!3d47.8945!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x549004d3e14ec4a9%3A0x2e82ebcb8d6b47e3!2s12902%20Hwy%2099%20Ste%207%2C%20Everett%2C%20WA%2098204!5e0!3m2!1sen!2sus!4v1693850000000!5m2!1sen!2sus",
+  satellite:
+    "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d800!2d-122.2107!3d47.8945!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x549004d3e14ec4a9%3A0x2e82ebcb8d6b47e3!2s12902%20Hwy%2099%20Ste%207%2C%20Everett%2C%20WA%2098204!5e1!3m2!1sen!2sus!4v1693850000000!5m2!1sen!2sus",
+};
+
+const DIRECT_MAP_LINK = "https://maps.google.com/?q=12902+Hwy+99+Ste+7+Everett+WA+98204";
+
 export default function FooterMap() {
   const { openBookingModal } = useAppControls();
+  const [viewMode, setViewMode] = useState<"standard" | "satellite">("standard");
 
   return (
     <section id="contact" className="relative w-full bg-slate-950">
       <div id="location" className="absolute -top-20" />
 
-      <div className="w-full container mx-auto  px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-16 sm:py-20">
-     
-         {/* Header Title & Subtitle */}
-          <div className="space-y-3 pb-8 md:text-left ">
-            {/* Subtitle with accent horizontal lines */}
-            <div className="flex items-center gap-3">
-              <span className="h-[2px] w-6 sm:w-8 bg-[#e4b021] rounded-full" />
-              <span className="text-xs sm:text-sm font-bold uppercase tracking-widest text-amber-400 font-mono">
-                Location
-              </span>
-              <span className="h-[2px] w-6 sm:w-8 bg-[#e4b021] rounded-full" />
-            </div>
-
-            {/* Main Title: Our Tailored Services */}
-            <h2 className="text-3xl sm:text-5xl md:text-6xl font-black text-white tracking-tight font-display drop-shadow-[0_2px_20px_rgba(255,255,255,0.15)]">
-            Visit Our Premier Hwy 99 Facility
-            </h2>
-            
-          
+      <div className="w-full container mx-auto px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-16 sm:py-20">
+        {/* Header Title & Subtitle */}
+        <div className="space-y-3 pb-8 md:text-left">
+          {/* Subtitle with accent horizontal lines */}
+          <div className="flex items-center gap-3">
+            <span className="h-[2px] w-6 sm:w-8 bg-[#e4b021] rounded-full" />
+            <span className="text-xs sm:text-sm font-bold uppercase tracking-widest text-amber-400 font-mono">
+              Location
+            </span>
+            <span className="h-[2px] w-6 sm:w-8 bg-[#e4b021] rounded-full" />
           </div>
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
 
+          {/* Main Title */}
+          <h2 className="text-3xl sm:text-5xl md:text-6xl font-black text-white tracking-tight font-display drop-shadow-[0_2px_20px_rgba(255,255,255,0.15)]">
+            Visit Our Premier Hwy 99 Facility
+          </h2>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
           {/* ═══ Left: Business Details Card ═══ */}
           <div className="lg:col-span-4 p-6 sm:p-8 rounded-2xl bg-slate-900/60 border border-slate-800 backdrop-blur-md flex flex-col justify-between space-y-6">
             <div className="space-y-6">
@@ -133,58 +141,115 @@ export default function FooterMap() {
                 Contact Us / Book Session
               </button>
               <a
-                href="https://maps.google.com/?q=12902+Hwy+99+Ste+7+Everett+WA+98204"
+                href={DIRECT_MAP_LINK}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full py-2.5 rounded-xl bg-slate-950 border border-slate-700 hover:border-brand-accent/50 text-white font-mono text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 hover:bg-slate-900 transition-all group"
                 data-interactive="true"
-                data-cursor-label="DIRECTIONS"
+                data-cursor-label="VIEW MAP"
+                onClick={() => audioEngine.playTick(1400)}
               >
                 <Navigation className="w-3.5 h-3.5 text-brand-accent group-hover:rotate-45 transition-transform" />
-                Get Driving Directions
+                View Map & Directions
+                <ExternalLink className="w-3.5 h-3.5 text-slate-400 group-hover:text-brand-accent transition-colors" />
               </a>
             </div>
           </div>
 
-          {/* ═══ Center: Map View (Street) ═══ */}
-          <div className="lg:col-span-4 rounded-2xl overflow-hidden border border-slate-800 shadow-[0_10px_30px_rgba(0,0,0,0.5)] min-h-[380px] sm:min-h-[420px] relative group">
-            {/* Map Label */}
-            <div className="absolute top-3 left-3 z-10 px-3 py-1.5 rounded-lg bg-slate-950/85 border border-slate-700 backdrop-blur-md text-[10px] font-mono font-bold text-white uppercase tracking-wider flex items-center gap-2 shadow-lg">
-              <MapPin className="w-3 h-3 text-brand-accent" />
-              Map View
+          {/* ═══ Right: Single Big Size Interactive Map ═══ */}
+          <div className="lg:col-span-8 rounded-2xl overflow-hidden border border-slate-800 shadow-[0_10px_40px_rgba(0,0,0,0.6)] min-h-[440px] sm:min-h-[500px] lg:min-h-[560px] relative group bg-slate-900 flex flex-col">
+            {/* Top Control Bar Overlay */}
+            <div className="absolute top-3 inset-x-3 z-10 flex flex-wrap items-center justify-between gap-2 pointer-events-none">
+              {/* Left: View Switcher (Standard / Satellite) */}
+              <div className="pointer-events-auto flex items-center p-1 rounded-xl bg-slate-950/85 border border-slate-700/80 backdrop-blur-md shadow-xl gap-1">
+                <button
+                  type="button"
+                  onClick={() => {
+                    audioEngine.playTick(1500);
+                    setViewMode("standard");
+                  }}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-mono font-bold uppercase tracking-wider transition-all ${
+                    viewMode === "standard"
+                      ? "bg-brand-accent text-slate-950 shadow-[0_0_12px_rgba(0,210,255,0.4)]"
+                      : "text-slate-300 hover:text-white hover:bg-slate-800/60"
+                  }`}
+                  data-interactive="true"
+                  data-cursor-label="STANDARD"
+                >
+                  <MapPin className="w-3 h-3" />
+                  Map View
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    audioEngine.playTick(1700);
+                    setViewMode("satellite");
+                  }}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-mono font-bold uppercase tracking-wider transition-all ${
+                    viewMode === "satellite"
+                      ? "bg-brand-accent text-slate-950 shadow-[0_0_12px_rgba(0,210,255,0.4)]"
+                      : "text-slate-300 hover:text-white hover:bg-slate-800/60"
+                  }`}
+                  data-interactive="true"
+                  data-cursor-label="SATELLITE"
+                >
+                  <Layers className="w-3 h-3" />
+                  Satellite
+                </button>
+              </div>
+
+              {/* Right: Direct "View Map" Button */}
+              <a
+                href={DIRECT_MAP_LINK}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="pointer-events-auto flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-950/90 hover:bg-brand-accent text-white hover:text-slate-950 border border-brand-accent/50 hover:border-brand-accent font-mono text-xs font-bold uppercase tracking-wider backdrop-blur-md transition-all shadow-[0_0_20px_rgba(0,0,0,0.5)] hover:shadow-[0_0_25px_rgba(0,210,255,0.5)] group/btn"
+                data-interactive="true"
+                data-cursor-label="OPEN MAP"
+                onClick={() => audioEngine.playTick(1400)}
+                title="Open directly in Google Maps"
+              >
+                <Navigation className="w-3.5 h-3.5 text-brand-accent group-hover/btn:text-slate-950 transition-colors group-hover/btn:rotate-45 transition-transform" />
+                <span>View Map</span>
+                <ExternalLink className="w-3.5 h-3.5 text-slate-400 group-hover/btn:text-slate-950 transition-colors" />
+              </a>
             </div>
+
+            {/* Bottom Address Indicator Banner */}
+            <div className="absolute bottom-3 left-3 right-3 z-10 pointer-events-none hidden sm:flex items-center justify-between px-4 py-2.5 rounded-xl bg-slate-950/85 border border-slate-700/80 backdrop-blur-md shadow-xl text-xs font-mono">
+              <div className="flex items-center gap-2 text-slate-300">
+                <MapPin className="w-4 h-4 text-brand-accent flex-shrink-0" />
+                <span className="text-white font-bold">12902 Hwy 99 Ste 7, Everett, WA 98204</span>
+                <span className="text-slate-500 hidden md:inline">|</span>
+                <span className="text-slate-400 hidden md:inline">Hwy 99 Collision & Restoration Bay</span>
+              </div>
+              <a
+                href={DIRECT_MAP_LINK}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="pointer-events-auto text-brand-accent hover:underline flex items-center gap-1 font-bold text-[11px] uppercase tracking-wider"
+                data-interactive="true"
+                data-cursor-label="DIRECTIONS"
+              >
+                Get Live Directions <ExternalLink className="w-3 h-3" />
+              </a>
+            </div>
+
+            {/* Google Maps Embed Iframe */}
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2682.5!2d-122.2107!3d47.8945!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x549004d3e14ec4a9%3A0x2e82ebcb8d6b47e3!2s12902%20Hwy%2099%20Ste%207%2C%20Everett%2C%20WA%2098204!5e0!3m2!1sen!2sus!4v1693850000000!5m2!1sen!2sus"
-              className="w-full h-full min-h-[380px] sm:min-h-[420px] border-0 grayscale-[30%] contrast-[1.1] group-hover:grayscale-0 transition-all duration-500"
+              key={viewMode}
+              src={MAP_URLS[viewMode]}
+              className="w-full h-full min-h-[440px] sm:min-h-[500px] lg:min-h-[560px] flex-1 border-0 transition-all duration-500"
               allowFullScreen
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
-              title="Auto Body Repair Inc. - Map View - 12902 Hwy 99 Ste 7, Everett WA"
+              title={`Auto Body Repair Inc. - ${viewMode === "standard" ? "Map View" : "Satellite View"} - 12902 Hwy 99 Ste 7, Everett WA`}
             />
           </div>
-
-          {/* ═══ Right: Satellite View ═══ */}
-          <div className="lg:col-span-4 rounded-2xl overflow-hidden border border-slate-800 shadow-[0_10px_30px_rgba(0,0,0,0.5)] min-h-[380px] sm:min-h-[420px] relative group">
-            {/* Satellite Label */}
-            <div className="absolute top-3 left-3 z-10 px-3 py-1.5 rounded-lg bg-slate-950/85 border border-slate-700 backdrop-blur-md text-[10px] font-mono font-bold text-white uppercase tracking-wider flex items-center gap-2 shadow-lg">
-              <svg className="w-3 h-3 text-brand-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="12" cy="12" r="10" />
-                <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-              </svg>
-              Satellite View
-            </div>
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d800!2d-122.2107!3d47.8945!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x549004d3e14ec4a9%3A0x2e82ebcb8d6b47e3!2s12902%20Hwy%2099%20Ste%207%2C%20Everett%2C%20WA%2098204!5e1!3m2!1sen!2sus!4v1693850000000!5m2!1sen!2sus"
-              className="w-full h-full min-h-[380px] sm:min-h-[420px] border-0 group-hover:scale-105 transition-transform duration-700"
-              allowFullScreen
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              title="Auto Body Repair Inc. - Satellite View - 12902 Hwy 99 Ste 7, Everett WA"
-            />
-          </div>
-
         </div>
       </div>
     </section>
   );
 }
+

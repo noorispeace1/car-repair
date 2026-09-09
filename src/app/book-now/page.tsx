@@ -19,8 +19,6 @@ import {
   Sparkles, 
   ArrowLeft, 
   CheckCircle2, 
-  Send, 
-  Navigation, 
   ExternalLink 
 } from "lucide-react";
 import { audioEngine } from "@/lib/audioSynthesizer";
@@ -28,35 +26,26 @@ import confetti from "canvas-confetti";
 
 export default function BookNowPage() {
   const [selectedService, setSelectedService] = useState<ServiceItem>(SERVICES_DATA[0]);
-  const [vehicleYear, setVehicleYear] = useState("2024");
-  const [vehicleMake, setVehicleMake] = useState("Porsche");
-  const [vehicleModel, setVehicleModel] = useState("911 Carrera GTS");
+  const [vehicle, setVehicle] = useState("Porsche 911");
   const [preferredDate, setPreferredDate] = useState("");
-  const [preferredTime, setPreferredTime] = useState("Morning (08:00 AM - 11:00 AM)");
   const [fullName, setFullName] = useState("");
   const [phone, setPhone] = useState("");
-  const [email, setEmail] = useState("");
   const [notes, setNotes] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
-  // Format WhatsApp message with all user details
+  // Format WhatsApp message with user details
   const generateWhatsAppMessage = () => {
     return `*NEW APPOINTMENT RESERVATION - AUTO BODY REPAIR INC.*
 -----------------------------------
-*Service:* ${selectedService.title} (Service ${selectedService.badgeNumber})
-*Vehicle:* ${vehicleYear} ${vehicleMake} ${vehicleModel}
+*Service:* ${selectedService.title} (Service #${selectedService.badgeNumber})
+*Vehicle:* ${vehicle || "Standard Inspection"}
 *Preferred Date:* ${preferredDate || "Earliest Available"}
-*Time Slot:* ${preferredTime}
 
 *Customer Details:*
 • *Name:* ${fullName || "Customer"}
-• *Phone:* ${phone || "Provided on call"}
-• *Email:* ${email || "N/A"}
-
-*Notes / Damage Details:*
-${notes || "Please inspect upon arrival for full diagnostic estimate."}
------------------------------------
-_Sent via Online Appointment Booking_`;
+• *Phone:* ${phone || "Provided on WhatsApp"}
+${notes ? `• *Notes:* ${notes}\n` : ""}-----------------------------------
+_Sent via Online Quick Booking_`;
   };
 
   const handleWhatsAppBooking = (e?: React.FormEvent) => {
@@ -80,7 +69,7 @@ _Sent via Online Appointment Booking_`;
 
   const handleEmailBooking = () => {
     audioEngine.playTick(1600);
-    const subject = `Appointment Booking: ${selectedService.title} - ${vehicleYear} ${vehicleMake} ${vehicleModel}`;
+    const subject = `Appointment Booking: ${selectedService.title} - ${vehicle}`;
     const body = generateWhatsAppMessage().replace(/\*/g, "");
     window.location.href = `mailto:contact@autobodyrepairinc.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   };
@@ -101,34 +90,30 @@ _Sent via Online Appointment Booking_`;
             <span>Home</span>
           </Link>
           <span>/</span>
-          <Link href="/services" className="hover:text-cyan-400 transition-colors">
-            Services
-          </Link>
-          <span>/</span>
-          <span className="text-cyan-400 font-bold">Book Appointment</span>
+          <span className="text-cyan-400 font-bold">Schedule Repair</span>
         </div>
 
         {/* Section Header */}
-        <div className="space-y-4 max-w-3xl">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-400/30 text-cyan-300 font-mono text-xs font-bold uppercase tracking-widest">
+        <div className="space-y-3 max-w-3xl">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-cyan-500/10 border border-cyan-400/30 text-cyan-300 font-mono text-xs font-bold uppercase tracking-widest">
             <Sparkles className="w-3.5 h-3.5 text-cyan-400 animate-pulse" />
-            <span>24/7 ONLINE APPOINTMENT RESERVATION</span>
+            <span>24/7 QUICK APPOINTMENT</span>
           </div>
 
-          <h1 className="text-3xl sm:text-5xl md:text-6xl font-black uppercase font-display tracking-tight text-white drop-shadow-[0_2px_20px_rgba(255,255,255,0.15)]">
+          <h1 className="text-3xl sm:text-5xl font-black uppercase font-display tracking-tight text-white drop-shadow-[0_2px_20px_rgba(255,255,255,0.15)]">
             Schedule Your Repair
           </h1>
 
-          <p className="text-sm sm:text-base md:text-lg text-slate-300 font-sans leading-relaxed">
-            Reserve your computerized laser frame alignment, Glasurit refinishing, or collision restoration slot with our senior ASE master technicians at Hwy 99.
+          <p className="text-sm sm:text-base text-slate-300 font-sans leading-relaxed">
+            Select your service and vehicle to instantly reserve your appointment with our master technicians.
           </p>
         </div>
 
         {/* ═══ Main 2-Column Grid: Form on Left + Picture/Service/Location on Right ═══ */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
           
-          {/* ════ LEFT COLUMN: Interactive Booking Form ════ */}
-          <div className="lg:col-span-7 bg-slate-900/60 p-6 sm:p-8 md:p-10 rounded-3xl border border-slate-800/80 backdrop-blur-xl space-y-8 shadow-2xl">
+          {/* ════ LEFT COLUMN: Streamlined Booking Form ════ */}
+          <div className="lg:col-span-7 bg-slate-900/60 p-6 sm:p-8 rounded-3xl border border-slate-800/80 backdrop-blur-xl space-y-6 shadow-2xl">
             
             {submitted ? (
               /* Success Confirmation Banner */
@@ -141,7 +126,7 @@ _Sent via Online Appointment Booking_`;
                     Reservation Submitted!
                   </h2>
                   <p className="text-sm text-slate-300 max-w-md mx-auto">
-                    Your appointment details have been dispatched to our senior service advisor on WhatsApp. We will confirm your preferred slot within minutes.
+                    Your appointment details have been dispatched to our senior service advisor on WhatsApp.
                   </p>
                 </div>
                 <div className="flex flex-wrap items-center justify-center gap-3 pt-4">
@@ -160,16 +145,16 @@ _Sent via Online Appointment Booking_`;
                 </div>
               </div>
             ) : (
-              <form onSubmit={handleWhatsAppBooking} className="space-y-8">
+              <form onSubmit={handleWhatsAppBooking} className="space-y-6">
                 
-                {/* 1. SELECT SERVICE */}
-                <div className="space-y-3">
+                {/* 1. SELECT SERVICE - Streamlined compact cards */}
+                <div className="space-y-2.5">
                   <label className="text-xs font-mono font-bold text-cyan-400 uppercase tracking-wider flex items-center gap-2">
                     <Wrench className="w-3.5 h-3.5" />
-                    <span>1. Select Required Service</span>
+                    <span>Select Service</span>
                   </label>
                   
-                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
                     {SERVICES_DATA.map((service) => {
                       const isSelected = selectedService.id === service.id;
                       return (
@@ -180,9 +165,9 @@ _Sent via Online Appointment Booking_`;
                             audioEngine.playTick(1500);
                             setSelectedService(service);
                           }}
-                          className={`p-3 rounded-2xl border text-left transition-all flex flex-col justify-between h-28 relative overflow-hidden group ${
+                          className={`p-3 rounded-xl border text-left transition-all flex flex-col justify-between h-20 relative overflow-hidden group ${
                             isSelected
-                              ? "bg-cyan-500/20 border-cyan-400 shadow-[0_0_20px_rgba(0,210,255,0.25)]"
+                              ? "bg-cyan-500/20 border-cyan-400 shadow-[0_0_16px_rgba(0,210,255,0.3)]"
                               : "bg-slate-950/70 border-slate-800 hover:border-slate-700 text-slate-300"
                           }`}
                         >
@@ -192,161 +177,99 @@ _Sent via Online Appointment Booking_`;
                             }`}>
                               #{service.badgeNumber}
                             </span>
-                            {isSelected && <CheckCircle2 className="w-4 h-4 text-cyan-300" />}
+                            {isSelected && <CheckCircle2 className="w-3.5 h-3.5 text-cyan-300" />}
                           </div>
-                          <div>
-                            <p className="text-xs font-bold font-display text-white line-clamp-1">
-                              {service.title}
-                            </p>
-                            <p className="text-[10px] text-slate-400 font-mono">
-                              {service.turnaround}
-                            </p>
-                          </div>
+                          <p className="text-xs font-bold font-display text-white line-clamp-1">
+                            {service.title}
+                          </p>
                         </button>
                       );
                     })}
                   </div>
                 </div>
 
-                {/* 2. VEHICLE SPECIFICATIONS */}
-                <div className="space-y-3">
-                  <label className="text-xs font-mono font-bold text-cyan-400 uppercase tracking-wider flex items-center gap-2">
-                    <Car className="w-3.5 h-3.5" />
-                    <span>2. Vehicle Specifications</span>
-                  </label>
-                  
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                    <div>
-                      <span className="text-[11px] font-mono text-slate-400">Year</span>
-                      <input
-                        type="text"
-                        value={vehicleYear}
-                        onChange={(e) => setVehicleYear(e.target.value)}
-                        placeholder="e.g. 2024"
-                        className="w-full mt-1 px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-400 text-white font-mono text-xs focus:outline-none transition-colors"
-                      />
-                    </div>
-                    <div>
-                      <span className="text-[11px] font-mono text-slate-400">Make</span>
-                      <input
-                        type="text"
-                        value={vehicleMake}
-                        onChange={(e) => setVehicleMake(e.target.value)}
-                        placeholder="e.g. Porsche / BMW"
-                        className="w-full mt-1 px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-400 text-white font-mono text-xs focus:outline-none transition-colors"
-                      />
-                    </div>
-                    <div>
-                      <span className="text-[11px] font-mono text-slate-400">Model</span>
-                      <input
-                        type="text"
-                        value={vehicleModel}
-                        onChange={(e) => setVehicleModel(e.target.value)}
-                        placeholder="e.g. 911 Carrera GTS"
-                        className="w-full mt-1 px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-400 text-white font-mono text-xs focus:outline-none transition-colors"
-                      />
-                    </div>
+                {/* 2. VEHICLE & PREFERRED DATE - Consolidated */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                  <div className="space-y-1.5">
+                    <label className="text-xs font-mono font-bold text-cyan-400 uppercase tracking-wider flex items-center gap-1.5">
+                      <Car className="w-3.5 h-3.5" />
+                      <span>Vehicle (Make / Model)</span>
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={vehicle}
+                      onChange={(e) => setVehicle(e.target.value)}
+                      placeholder="e.g. Porsche 911 / BMW M3"
+                      className="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-400 text-white font-mono text-xs focus:outline-none transition-colors"
+                    />
+                  </div>
+
+                  <div className="space-y-1.5">
+                    <label className="text-xs font-mono font-bold text-cyan-400 uppercase tracking-wider flex items-center gap-1.5">
+                      <Calendar className="w-3.5 h-3.5" />
+                      <span>Preferred Date</span>
+                    </label>
+                    <input
+                      type="date"
+                      value={preferredDate}
+                      onChange={(e) => setPreferredDate(e.target.value)}
+                      className="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-400 text-white font-mono text-xs focus:outline-none transition-colors"
+                    />
                   </div>
                 </div>
 
-                {/* 3. APPOINTMENT DATE & TIME */}
-                <div className="space-y-3">
-                  <label className="text-xs font-mono font-bold text-cyan-400 uppercase tracking-wider flex items-center gap-2">
-                    <Calendar className="w-3.5 h-3.5" />
-                    <span>3. Preferred Date &amp; Time Window</span>
-                  </label>
-                  
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    <div>
-                      <span className="text-[11px] font-mono text-slate-400">Appointment Date</span>
-                      <input
-                        type="date"
-                        value={preferredDate}
-                        onChange={(e) => setPreferredDate(e.target.value)}
-                        className="w-full mt-1 px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-400 text-white font-mono text-xs focus:outline-none transition-colors"
-                      />
-                    </div>
-                    <div>
-                      <span className="text-[11px] font-mono text-slate-400">Preferred Time Slot</span>
-                      <select
-                        value={preferredTime}
-                        onChange={(e) => setPreferredTime(e.target.value)}
-                        className="w-full mt-1 px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-400 text-white font-mono text-xs focus:outline-none transition-colors"
-                      >
-                        <option>Morning (08:00 AM - 11:00 AM)</option>
-                        <option>Mid-Day (11:00 AM - 02:00 PM)</option>
-                        <option>Afternoon (02:00 PM - 05:00 PM)</option>
-                        <option>Express Sprint Drop-Off</option>
-                      </select>
-                    </div>
+                {/* 3. CONTACT INFORMATION - Consolidated to Name & Phone */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                  <div className="space-y-1.5">
+                    <label className="text-xs font-mono font-bold text-cyan-400 uppercase tracking-wider">
+                      Your Name
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={fullName}
+                      onChange={(e) => setFullName(e.target.value)}
+                      placeholder="e.g. John Doe"
+                      className="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-400 text-white font-mono text-xs focus:outline-none transition-colors"
+                    />
+                  </div>
+
+                  <div className="space-y-1.5">
+                    <label className="text-xs font-mono font-bold text-cyan-400 uppercase tracking-wider">
+                      Phone Number (WhatsApp)
+                    </label>
+                    <input
+                      type="tel"
+                      required
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                      placeholder="1 (425) 750-5164"
+                      className="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-400 text-white font-mono text-xs focus:outline-none transition-colors"
+                    />
                   </div>
                 </div>
 
-                {/* 4. CUSTOMER CONTACT DETAILS */}
-                <div className="space-y-3">
-                  <label className="text-xs font-mono font-bold text-cyan-400 uppercase tracking-wider flex items-center gap-2">
-                    <Mail className="w-3.5 h-3.5" />
-                    <span>4. Contact Information</span>
-                  </label>
-                  
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                    <div>
-                      <span className="text-[11px] font-mono text-slate-400">Full Name</span>
-                      <input
-                        type="text"
-                        required
-                        value={fullName}
-                        onChange={(e) => setFullName(e.target.value)}
-                        placeholder="John Doe"
-                        className="w-full mt-1 px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-400 text-white font-mono text-xs focus:outline-none transition-colors"
-                      />
-                    </div>
-                    <div>
-                      <span className="text-[11px] font-mono text-slate-400">Phone Number</span>
-                      <input
-                        type="tel"
-                        required
-                        value={phone}
-                        onChange={(e) => setPhone(e.target.value)}
-                        placeholder="1 (425) 750-5164"
-                        className="w-full mt-1 px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-400 text-white font-mono text-xs focus:outline-none transition-colors"
-                      />
-                    </div>
-                    <div>
-                      <span className="text-[11px] font-mono text-slate-400">Email Address</span>
-                      <input
-                        type="email"
-                        required
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        placeholder="john@example.com"
-                        className="w-full mt-1 px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-400 text-white font-mono text-xs focus:outline-none transition-colors"
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                {/* 5. DAMAGE DETAILS / REPAIR NOTES */}
-                <div className="space-y-2">
+                {/* 4. OPTIONAL NOTES */}
+                <div className="space-y-1.5">
                   <span className="text-[11px] font-mono text-slate-400">
-                    Describe Damage or Notes (Optional)
+                    Brief Notes or Damage (Optional)
                   </span>
-                  <textarea
-                    rows={3}
+                  <input
+                    type="text"
                     value={notes}
                     onChange={(e) => setNotes(e.target.value)}
-                    placeholder="e.g. Front fender impact, passenger door crease, insurance claim number..."
+                    placeholder="e.g. Front bumper scrape, need quick quote..."
                     className="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-400 text-white font-sans text-xs focus:outline-none transition-colors"
                   />
                 </div>
 
                 {/* ════ SUBMIT ACTIONS ════ */}
-                <div className="space-y-3 pt-2">
-                  
+                <div className="space-y-2.5 pt-1">
                   {/* DIRECT WHATSAPP CONFIRMATION BUTTON */}
                   <button
                     type="submit"
-                    className="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-emerald-500 via-emerald-600 to-green-600 hover:from-emerald-400 hover:to-green-500 text-white font-mono font-bold text-sm uppercase tracking-wider shadow-[0_0_35px_rgba(16,185,129,0.45)] hover:shadow-[0_0_50px_rgba(16,185,129,0.7)] hover:scale-[1.01] active:scale-[0.98] transition-all flex items-center justify-center gap-3 group"
+                    className="w-full py-3.5 px-6 rounded-2xl bg-gradient-to-r from-emerald-500 via-emerald-600 to-green-600 hover:from-emerald-400 hover:to-green-500 text-white font-mono font-bold text-sm uppercase tracking-wider shadow-[0_0_30px_rgba(16,185,129,0.45)] hover:shadow-[0_0_45px_rgba(16,185,129,0.7)] hover:scale-[1.01] active:scale-[0.98] transition-all flex items-center justify-center gap-3 group"
                   >
                     {/* WhatsApp Icon */}
                     <svg className="w-5 h-5 fill-current text-white group-hover:rotate-12 transition-transform" viewBox="0 0 24 24">
@@ -359,15 +282,11 @@ _Sent via Online Appointment Booking_`;
                   <button
                     type="button"
                     onClick={handleEmailBooking}
-                    className="w-full py-3.5 px-6 rounded-2xl bg-slate-950 hover:bg-slate-900 border border-slate-700 hover:border-cyan-400 text-slate-300 hover:text-cyan-300 font-mono text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2"
+                    className="w-full py-2.5 px-6 rounded-xl bg-slate-950 hover:bg-slate-900 border border-slate-800 hover:border-cyan-400 text-slate-300 hover:text-cyan-300 font-mono text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2"
                   >
-                    <Mail className="w-4 h-4 text-cyan-400" />
+                    <Mail className="w-3.5 h-3.5 text-cyan-400" />
                     <span>OR SEND VIA EMAIL RESERVATION</span>
                   </button>
-
-                  <p className="text-[11px] text-center font-mono text-slate-400 pt-1">
-                    ⚡ Instant WhatsApp confirmation &amp; official VIN warranty documentation provided.
-                  </p>
                 </div>
 
               </form>

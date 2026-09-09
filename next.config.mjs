@@ -11,6 +11,9 @@ const nextConfig = {
     unoptimized: true,
   },
   async headers() {
+    if (process.env.NODE_ENV !== "production") {
+      return [];
+    }
     return [
       {
         source: "/:all*(svg|jpg|jpeg|png|webp|avif|ico|woff|woff2|mp4|webm)",

@@ -10,7 +10,6 @@ import {
   Wrench,
   MapPin,
   ShieldCheck,
-  Users,
   PhoneCall,
   ArrowRight,
   Sparkles,
@@ -32,12 +31,11 @@ export default function HeaderNav() {
     { label: "SERVICES", id: "tailored-services", href: "/#tailored-services", icon: Wrench },
     { label: "LOCATIONS", id: "location", href: "/#location", icon: MapPin },
     { label: "WARRANTY", id: "warranty", href: "/#warranty", icon: ShieldCheck },
-    { label: "ABOUT", id: "about", href: "/#about", icon: Users },
     { label: "CONTACT", id: "contact", href: "/#contact", icon: PhoneCall },
   ];
 
   useEffect(() => {
-    const sections = ["tailored-services", "warranty", "about", "location", "contact"];
+    const sections = ["tailored-services", "warranty", "location", "contact"];
 
     const handleScrollSpy = () => {
       setScrolled(window.scrollY > 20);

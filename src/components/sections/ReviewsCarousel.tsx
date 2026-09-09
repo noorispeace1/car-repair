@@ -53,11 +53,11 @@ const REVIEWS: Review[] = [
     rating: 5,
     location: "Everett, WA",
     verifiedDate: "3 days ago",
-    serviceTag: "Celette Laser Frame Alignment",
+    serviceTag: "Precision Laser Frame Alignment",
     serviceType: "frame",
     insurerTag: "Chubb Prestige Carrier",
     comment:
-      "After a severe front-quarter impact, Auto Body Repair Inc. restored my 911 Carrera using their Celette frame bench. The Miami Blue Glasurit paint match is indistinguishable from the factory Stuttgart finish. Delivered in 3 days!",
+      "After a severe front-quarter impact, Auto Body Repair Inc. restored my 911 Carrera using their precision laser frame bench. The Miami Blue factory-spec paint match is indistinguishable from the Stuttgart showroom finish. Delivered in 3 days!",
     helpfulCount: 18,
     invoiceId: "WA-8842",
   },

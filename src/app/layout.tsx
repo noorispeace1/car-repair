@@ -31,25 +31,25 @@ const jetbrains = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Auto Body Repair Inc. | Premier Collision & Restoration on Hwy 99",
+  title: "Auto Body Repair Inc. | Premier Luxury Collision & Restoration Studio",
   description:
-    "High-end auto body repair, computerized Celette laser frame alignment, Glasurit 90-line waterborne refinishing, and 03-Day Rapid Sprint collision restoration at 12902 Hwy 99 Ste 7. Call 1 (425) 750-5164.",
+    "Washington's premier high-precision automotive restoration center. Delivering showroom-grade paint perfection, laser unibody realignment, and certified master craftsmanship at 12902 Hwy 99 Ste 7. Call 1 (425) 750-5164.",
   keywords: [
     "Auto Body Repair Inc",
     "12902 Hwy 99 Ste 7",
     "Auto body repair Everett WA",
     "Collision repair Lynnwood WA",
     "Porsche collision repair",
-    "Celette laser frame alignment",
-    "Glasurit ceramic refinishing",
-    "03-Day rapid sprint collision",
+    "Laser frame alignment",
+    "Showroom paint refinishing",
+    "Express collision restoration",
     "Hwy 99 body shop",
   ],
   authors: [{ name: "Auto Body Repair Inc." }],
   openGraph: {
-    title: "Auto Body Repair Inc. | Premier Collision & Restoration on Hwy 99",
+    title: "Auto Body Repair Inc. | Premier Luxury Collision & Restoration Studio",
     description:
-      "High-end collision restoration, computerized frame alignment, and Glasurit refinishing at 12902 Hwy 99 Ste 7.",
+      "High-end collision restoration, computerized frame alignment, and showroom refinishing at 12902 Hwy 99 Ste 7.",
     type: "website",
     locale: "en_US",
   },

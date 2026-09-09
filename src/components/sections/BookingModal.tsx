@@ -17,7 +17,7 @@ export default function BookingModal() {
     vehicleModel: "911 Carrera",
     insurance: "State Farm",
     serviceType: "Structural Collision Repair",
-    turnaround: "03-Day Rapid Sprint",
+    turnaround: "Express Rapid Sprint",
     preferredDate: "2026-09-08",
     preferredTime: "08:30 AM",
     fullName: "",

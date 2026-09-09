@@ -87,7 +87,7 @@ export const SERVICES_DATA: ServiceItem[] = [
     fullDescription:
       "Dealership-grade structural reconstruction following minor or major collision impacts. Using OEM manufacturer repair procedures, we replace damaged panels, rebuild unibody crash structures, and restore original factory stiffness.",
     features: [
-      "Celette frame bench structural measurement & pull",
+      "Computerized laser frame bench structural measurement & pull",
       "Boron & high-strength aluminum bonding & riveting",
       "OEM sheet metal replacement & seam-sealed welds",
       "Sub-millimeter laser panel gap realignment",
@@ -123,15 +123,15 @@ export const SERVICES_DATA: ServiceItem[] = [
     slug: "paint-refinishing",
     badgeNumber: "06",
     title: "Paint & Refinishing",
-    shortDesc: "Glasurit factory-match waterborne color and clear coat.",
+    shortDesc: "Showroom factory-match waterborne color and ceramic clear coat.",
     image: "/service_paint.jpg",
     category: "Factory Down-Draft Refinishing",
     fullDescription:
-      "State-of-the-art downdraft cleanroom booth refinishing using Glasurit 90-Line waterborne paints. Multi-stage prep, computerized spectrophotometer color matching, and infrared baking ensure a mirror showroom gloss.",
+      "State-of-the-art downdraft cleanroom booth refinishing using ultra-refined waterborne paints. Multi-stage prep, computerized spectrophotometer color matching, and infrared baking ensure a mirror showroom gloss.",
     features: [
       "Computerized spectrophotometer color formula matching",
       "Downdraft spray booth with HEPA micro-filtration",
-      "Glasurit 90-Line eco-friendly waterborne chemistry",
+      "Ultra-durable eco-friendly waterborne chemistry",
       "Infrared ceramic curing oven for Rockwell-tested hardness",
       "Zero orange-peel wet sanding and multi-stage polishing",
       "Lifetime paint clearcoat peel and fade protection"

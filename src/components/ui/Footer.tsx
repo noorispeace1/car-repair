@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import {
   Wrench,
   MapPin,
@@ -147,13 +148,13 @@ export default function Footer() {
                   Auto Body Repair Inc.
                 </span>
                 <span className="text-[11px] font-mono text-brand-accent font-bold tracking-widest uppercase">
-                  Precision Computerized Collision Studio
+                  Premier Luxury Collision &amp; Restoration Studio
                 </span>
               </div>
             </div>
 
             <p className="text-sm text-slate-300 leading-relaxed font-sans">
-              Pacific Northwest&apos;s leading high-tolerance collision restoration facility. Specializing in factory Celette laser chassis alignment, Glasurit 90-line waterborne refinishing, and 03-Day Rapid Sprint repairs on Highway 99.
+              Washington&apos;s premier high-precision automotive restoration center. Delivering showroom-grade paint perfection, laser unibody realignment, and certified master craftsmanship for luxury, electric, and all vehicle makes on Highway 99.
             </p>
 
             {/* Compact Sleek Social Icons Row */}
@@ -184,18 +185,18 @@ export default function Footer() {
             <div className="space-y-2.5 pt-2">
               <div className="flex items-center gap-3 p-3 rounded-xl bg-slate-900/80 border border-slate-800 text-xs font-mono">
                 <ShieldCheck className="w-4 h-4 text-emerald-400 flex-shrink-0" />
-                <span className="text-white font-bold">Lifetime Transferable Craftsmanship Warranty</span>
+                <span className="text-white font-bold">Guaranteed Lifetime Transferable Warranty</span>
               </div>
               <div className="flex items-center gap-3 p-3 rounded-xl bg-slate-900/80 border border-slate-800 text-xs font-mono">
                 <Award className="w-4 h-4 text-brand-accent flex-shrink-0" />
-                <span className="text-slate-200">I-CAR Gold Class Certified & ASE Master Technicians</span>
+                <span className="text-slate-200">I-CAR Gold Class &amp; Certified Master Technicians</span>
               </div>
             </div>
 
             {/* Newsletter form */}
             <div className="space-y-2 pt-1">
               <span className="text-xs font-mono font-bold text-white uppercase tracking-wider block">
-                Receive Repair Progress & Insurance Tips
+                Receive Repair Progress &amp; Insurance Tips
               </span>
               <form onSubmit={handleSubscribe} className="flex gap-2">
                 <input
@@ -230,19 +231,24 @@ export default function Footer() {
             </h4>
             <ul className="space-y-3 text-slate-300 text-[13px]">
               {[
-                "03-Day Rapid Sprint Collision",
-                "Celette Laser Chassis Alignment",
-                "Glasurit 90-Line Waterborne Refinish",
-                "OEM Aluminum Structural Pulse MIG",
-                "ADAS Radar & Camera Recalibration",
-                "Paintless Dent Removal (PDR)",
-                "Luxury, Exotic & EV Structural Restoration",
-                "Unibody Pulling & Factory Tolerances",
-                "Computerized Precision Paint Matching",
+                { title: "Complete Collision Restoration", href: "/services/collision-repair" },
+                { title: "Precision Laser Frame Alignment", href: "/services/laser-frame-alignment" },
+                { title: "Showroom Paint & Refinishing", href: "/services/paint-refinishing" },
+                { title: "Factory Scheduled Maintenance", href: "/services/maintenance" },
+                { title: "Diagnostic & Vehicle Care", href: "/services/care-services" },
+                { title: "Genuine OEM Spare Parts", href: "/services/spare-parts" },
+                { title: "Paintless Dent Repair (PDR)", href: "/services/collision-repair" },
+                { title: "Luxury, Exotic & EV Restoration", href: "/services/collision-repair" },
+                { title: "Express Rapid Sprint Repairs", href: "/book-now" },
               ].map((service) => (
-                <li key={service} className="flex items-center gap-2.5 group cursor-pointer hover:text-brand-accent transition-colors">
-                  <ChevronRight className="w-3.5 h-3.5 text-brand-accent/60 group-hover:text-brand-accent group-hover:translate-x-1 transition-all" />
-                  <span>{service}</span>
+                <li key={service.title}>
+                  <Link
+                    href={service.href}
+                    className="flex items-center gap-2.5 group cursor-pointer hover:text-brand-accent transition-colors"
+                  >
+                    <ChevronRight className="w-3.5 h-3.5 text-brand-accent/60 group-hover:text-brand-accent group-hover:translate-x-1 transition-all" />
+                    <span>{service.title}</span>
+                  </Link>
                 </li>
               ))}
             </ul>

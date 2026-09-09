@@ -31,7 +31,7 @@ export default function ServicesPage() {
             Tailored Repair Services
           </h1>
           <p className="text-base sm:text-lg text-slate-300 font-sans leading-relaxed">
-            From computerized Celette laser frame bench reconstruction to Glasurit 90-line waterborne baked refinishing, choose your restoration discipline.
+            From computerized laser unibody realignment to flawless showroom baked refinishing, explore our certified master repair disciplines.
           </p>
         </div>
 

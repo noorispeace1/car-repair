@@ -165,9 +165,7 @@ export default function PorscheScrubberHero() {
             variants={itemVariants}
             className="text-xs sm:text-base md:text-lg text-slate-200 font-sans leading-relaxed max-w-3xl mx-auto drop-shadow-[0_2px_15px_rgba(0,0,0,0.9)]"
           >
-            Delivering dealership-grade collision restoration, computerized laser chassis realignment, and Glasurit
-            factory waterborne refinishing for Porsche, luxury, and all vehicle makes. Every repair is executed to
-            millimeter tolerances with comprehensive multi-point safety validation and guaranteed lifetime warranty.
+            Delivering dealership-grade collision restoration, computerized laser chassis realignment, and flawless showroom-finish waterborne refinishing for Porsche, luxury, and all vehicle makes. Every repair is executed to microscopic tolerances with comprehensive safety validation and a guaranteed lifetime warranty.
           </motion.p>
 
           {/* Metric Cards — rendered immediately */}

@@ -43,19 +43,28 @@ export default function SmoothScrollProvider({ children }: { children: ReactNode
     if (reducedMotion) return;
 
     const lenis = new Lenis({
-      lerp: 0.09,
+      duration: 1.0,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      orientation: "vertical",
+      gestureOrientation: "vertical",
       smoothWheel: true,
       wheelMultiplier: 1.0,
-      touchMultiplier: 1.0,
-      syncTouch: false,
+      touchMultiplier: 1.5,
+      infinite: false,
+      autoResize: true,
     });
 
     setLenisInstance(lenis);
 
     lenis.on("scroll", ScrollTrigger.update);
-    const raf = (time: number) => lenis.raf(time * 1000);
+
+    const raf = (time: number) => {
+      lenis.raf(time * 1000);
+    };
+
     gsap.ticker.add(raf);
-    gsap.ticker.lagSmoothing(0);
+    // 500ms lag threshold with 33ms target frame to prevent stutter or frame freezing
+    gsap.ticker.lagSmoothing(500, 33);
 
     return () => {
       gsap.ticker.remove(raf);

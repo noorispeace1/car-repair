@@ -20,6 +20,9 @@ type Props = {
   params: Promise<{ slug: string }>;
 };
 
+export const dynamic = "force-static";
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return SERVICES_DATA.map((s) => ({ slug: s.slug }));
 }

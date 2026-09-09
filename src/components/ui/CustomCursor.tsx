@@ -34,7 +34,7 @@ export default function CustomCursor() {
     const onMouseMove = (e: MouseEvent) => {
       mouseX = e.clientX;
       mouseY = e.clientY;
-      if (!visible) setVisible(true);
+      setVisible((prev) => (prev ? prev : true));
 
       if (dotRef.current) {
         dotRef.current.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0)`;
@@ -108,7 +108,7 @@ export default function CustomCursor() {
       document.removeEventListener("mouseover", onMouseOver);
       cancelAnimationFrame(animId);
     };
-  }, [visible]);
+  }, []);
 
   const setTrailRef = useCallback(
     (idx: number) => (el: HTMLDivElement | null) => {

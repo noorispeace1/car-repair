@@ -2,6 +2,9 @@ import Link from "next/link";
 import { SERVICES_DATA, getWhatsAppBookingUrl, WHATSAPP_PHONE_NUMBER } from "@/data/servicesData";
 import { ArrowLeft, ArrowRight, Sparkles, CheckCircle2, Clock, ShieldCheck, Phone } from "lucide-react";
 
+export const dynamic = "force-static";
+export const revalidate = false;
+
 export const metadata = {
   title: "Tailored Collision Services | Auto Body Repair Inc.",
   description: "Browse all certified auto body, collision repair, computerized chassis alignment, and paint services at 12902 Hwy 99 Ste 7.",

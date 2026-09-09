@@ -102,6 +102,10 @@ export default function HeaderNav() {
 
   return (
     <header className="fixed top-[27px] left-0 right-0 z-50 transition-all duration-300">
+      {/* Active module factory anchor for Turbopack HMR */}
+      <span className="hidden opacity-0 pointer-events-none" aria-hidden="true">
+        <Users className="w-0 h-0" />
+      </span>
       
       {/* ═══ Main Navbar (Dark Luxury Glassmorphism with Animated Laser Accents) ═══ */}
       <div

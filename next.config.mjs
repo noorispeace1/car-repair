@@ -10,35 +10,6 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  async headers() {
-    if (process.env.NODE_ENV !== "production") {
-      return [];
-    }
-    return [
-      {
-        source: "/:all*(svg|jpg|jpeg|png|webp|avif|ico|woff|woff2|mp4|webm)",
-        headers: [
-          {
-            key: "Cache-Control",
-            value: "public, max-age=31536000, immutable",
-          },
-        ],
-      },
-      {
-        source: "/(.*)",
-        headers: [
-          {
-            key: "X-DNS-Prefetch-Control",
-            value: "on",
-          },
-          {
-            key: "X-Content-Type-Options",
-            value: "nosniff",
-          },
-        ],
-      },
-    ];
-  },
   async redirects() {
     return [
       {

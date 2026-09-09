@@ -14,6 +14,7 @@ import {
   ArrowRight,
   Sparkles,
   Clock,
+  Users,
 } from "lucide-react";
 import { useAppControls } from "@/components/providers/SmoothScrollProvider";
 import { audioEngine } from "@/lib/audioSynthesizer";
